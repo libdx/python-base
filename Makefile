@@ -15,11 +15,11 @@ run-dev:
 
 test:
 	docker-compose exec $(APP) \
-		pytest $(PROJECT)/$(TESTS) -p no:warnings
+		pytest $(TESTS) -p no:warnings
 
 cov:
 	docker-compose exec $(APP) \
-		pytest $(PROJECT)/$(TESTS) -p no:warnings --cov=$(PROJECT)
+		pytest $(TESTS) -p no:warnings --cov=$(PROJECT)
 
 lint:
 	docker-compose exec $(APP) flake8 $(PROJECT)

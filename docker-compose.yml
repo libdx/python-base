@@ -21,7 +21,7 @@ services:
 
   app-db:
     build:
-      context: ./project/db
+      context: ./db
       dockerfile: Dockerfile
     expose:
       - 5432
