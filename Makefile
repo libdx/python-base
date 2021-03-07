@@ -1,4 +1,6 @@
 APP = app
+PROJECT = project
+TESTS = tests
 
 .PHONY: clean
 
@@ -12,14 +14,16 @@ run-dev:
 	docker-compose up --build --detach
 
 test:
-	docker-compose exec $(APP) pipenv run test
+	docker-compose exec $(APP) \
+		pytest $(PROJECT)/$(TESTS) -p no:warnings
 
 cov:
-	docker-compose exec $(APP) pipenv run cov
+	docker-compose exec $(APP) \
+		pytest $(PROJECT)/$(TESTS) -p no:warnings --cov=$(PROJECT)
 
 lint:
-	docker-compose exec $(APP) pipenv run lint
+	docker-compose exec $(APP) flake8 $(PROJECT)
 
 fix:
 	docker-compose exec $(APP) sh -c \
-		"pipenv run fix && pipenv run isort"
+		"black $(PROJECT) && isort $(PROJECT)
